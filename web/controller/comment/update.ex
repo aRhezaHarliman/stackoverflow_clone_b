@@ -27,7 +27,7 @@ defmodule StackoverflowCloneB.Controller.Comment.Update do
 
   def updateCommentFromAction(conn, action, document_id, target_id) do
     with_action(conn, action, document_id, fn request_result -> 
-      document_id_from_req = request_result["_id"]
+      # document_id_from_req = request_result["_id"]
       request_body = RequestBody.new(conn.request.body)
       case request_body do
         {:ok,_} ->
