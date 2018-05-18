@@ -1,11 +1,13 @@
 <template>
   <div>
     <div class="page-title">{{ question.title }}</div>
+    <hr>
     <div class="body">{{ question.body }}</div>
     <div class="additional">
-      Posted at {{ question.createdAt }} by {{ question.userId }}
+      Posted at {{ question.createdAt }} by 
+      <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
+          {{ question.userId }}</router-link>
     </div>
-    <hr>
     <br >
     コメント
     <div
