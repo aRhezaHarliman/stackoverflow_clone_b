@@ -22,3 +22,13 @@ a {
   color: #aaa;
   font-size: small;
 }
+.comments {
+  margin-left: 20px;
+}
+.comment_form {
+  margin-left: 20px;
+}
+.comment_body {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

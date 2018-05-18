@@ -4,20 +4,21 @@
       <question :question="question"/>
     </div>
     <h1 v-else>404 (Not Found)</h1>
+    <router-link :to="{ name: 'QuestionListPage'}">
+      一覧に戻る
+    </router-link>
   </div>
 </template>
 
 <script>
 import _ from 'lodash';
 import Question from '@/components/Question';
-import Comment from '@/components/Comment';
 import Answer from '@/components/Answer';
 
 export default {
   name: 'QuestionDetailPage',
   components: {
     Question,
-    Comment,
     Answer,
   },
   data() {
