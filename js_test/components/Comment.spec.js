@@ -5,7 +5,6 @@ import Comment from '@/components/Comment';
 import router from '@/router';
 
 describe('Comment', function () {
-  let store;
   const comment = {
     id: 'dhzMyIF8dXYbCpZTHred',
     user_id: '589d196d22000036137e473b',
@@ -15,6 +14,7 @@ describe('Comment', function () {
   };
   it('renders comment body and created_at components', function () {
     const wrapper = shallow(Comment, {
+      router,
       propsData: {
         comment,
       },

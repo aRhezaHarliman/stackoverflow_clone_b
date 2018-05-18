@@ -31,6 +31,9 @@ export default {
     question() {
       return this.$store.state.question;
     },
+    // answer() {
+    //   return this.$store.state.answer;
+    // }
   },
   mounted() {
     this.retrieveQuestion();
