@@ -7,6 +7,7 @@ Vue.mixin({
       bodyMaxLength: AppConfig.bodyMaxLength,
       titleMaxLength: AppConfig.titleMaxLength,
       authorMaxLength: AppConfig.authorMaxLength,
+      commentMaxLength: AppConfig.commentMaxLength,
     };
   },
   methods: {
