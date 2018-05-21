@@ -9,7 +9,7 @@
             id="form-comment"
             v-model="editingBody"
             :maxlength="commentMaxLength"
-            class="title-edit form-control"
+            class="body-edit form-control"
             type="text"
             minlength="1"
             required>
@@ -31,10 +31,11 @@
           <router-link :to="{ name: 'UserDetailPage', params: { id: comment.userId }}">
             {{ comment.userId }}</router-link>
         </span>
-      </div>
-      <div class="additional">
-        <span v-if="!editing && isValidUser(comment.userId)">
+        <span
+          v-if="isValidUser(comment.userId)"
+          class="additional">
           <button
+            v-if="!editing"
             type="button"
             class="edit-button btn btn-link"
             @click="startEdit">

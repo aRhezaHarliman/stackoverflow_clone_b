@@ -49,7 +49,6 @@ export default {
   },
   methods: {
     submit() {
-      console.log(this.$store.state.id);
       this.$store.dispatch('createQuestion', { title: this.title, body: this.body })
         .then(() => {
           this.$router.push({ path: '/' });

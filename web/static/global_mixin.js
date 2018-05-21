@@ -23,7 +23,7 @@ Vue.mixin({
       return this.$store.state.id;
     },
     isValidUser(id) {
-      return this.$store.state.id == id;
+      return this.$store.state.id === id;
     },
   },
 });
