@@ -14,11 +14,12 @@
       :key="comment.id"
       class="comments">
       <comment
-        :comment="comment" />
+        :comment="comment"
+        @update="updateComment" />
       <hr>
     </div>
     <div v-if="isLoggedIn()">
-      <div class="form-group">
+      <div class="form-group comment-form">
         <input
           id="form-comment"
           v-model="comment"
@@ -27,9 +28,9 @@
           type="text"
           minlength="1"
           required>
-        <button 
+        <button
           class="btn btn-primary mb-2 btn-comment"
-          v-on:click="submitComment">投稿</button>
+          @click="submitComment">投稿</button>
       </div>
     </div>
   </div>
@@ -61,9 +62,12 @@ export default {
   methods: {
     submitComment() {
       this.$store.dispatch('createQuestionComment', { questionId: this.$route.params.id, body: this.comment })
-      .then(() => {
-          this.$router.push({ path: '/question/'+this.$route.params.id });
+        .then(() => {
+          this.$router.push({ path: `/question/${this.$route.params.id}` });
         });
+    },
+    updateComment({ commentId, body }) {
+      this.$store.dispatch('updateQuestionComment', { questionId: this.$route.params.id, id: commentId, body: body });
     },
   },
 };
@@ -72,8 +76,5 @@ export default {
 <style scoped>
 .btn-comment {
   margin-top: 10px;
-}
-.form-group {
-  margin-left: 20px;
 }
 </style>

@@ -19,6 +19,6 @@ describe('Comment', function () {
         comment,
       },
     });
-    assert(wrapper.find('.comment_body').text().includes(comment.body));
+    assert(wrapper.find('.comment-body').text().includes(comment.body));
   });
 });
