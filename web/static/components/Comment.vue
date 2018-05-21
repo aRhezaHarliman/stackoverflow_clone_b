@@ -33,7 +33,7 @@
         </span>
       </div>
       <div class="additional">
-        <span v-if="!editing">
+        <span v-if="!editing && isValidUser(comment.userId)">
           <button
             type="button"
             class="edit-button btn btn-link"
