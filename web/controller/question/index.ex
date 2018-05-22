@@ -23,7 +23,8 @@ defmodule StackoverflowCloneB.Controller.Question.Index do
         ErrorJson.json_by_error(conn, BadRequestError.new())
       {:ok, validated} ->
         #IO.inspect query_params #> [title: "\"こんにちは\""]
-        query = convert_to_dodai_req_query(validated,query_params["page"])
+        # query = convert_to_dodai_req_query(validated,query_params["page"]) # Pagination TODO
+        query = convert_to_dodai_req_query(validated)
         #data.title:"xxx"
         #IO.inspect query #>%Dodai.RetrieveDedicatedDataEntityListRequestQuery{limit: nil, query: %{"data.title" => "\"こんにちは\""}, skip: nil,sort: %{"_id" => 1}}
         req = Dodai.RetrieveDedicatedDataEntityListRequest.new(SD.default_group_id(), Helper.collection_name(), SD.root_key(), query)
@@ -32,21 +33,23 @@ defmodule StackoverflowCloneB.Controller.Question.Index do
     end
   end
   #Dodai上に渡すためにqueryの形を変換[title:"xxx"]->[data.title:"xxx"]
-  defunpt convert_to_dodai_req_query(params :: v[IndexRequestParams.t],page) :: Dodai.RetrieveDedicatedDataEntityListRequestQuery.t do
+  # defunpt convert_to_dodai_req_query(params :: v[IndexRequestParams.t], page) :: Dodai.RetrieveDedicatedDataEntityListRequestQuery.t do #Pagination todo
+  defunpt convert_to_dodai_req_query(params :: v[IndexRequestParams.t]) :: Dodai.RetrieveDedicatedDataEntityListRequestQuery.t do
     #IO.inspect params #>%StackoverflowCloneB.Controller.Question.IndexRequestParams{author: nil, title: "\"こんにちは\""}
     #IO.inspect Map.from_struct(params) #>%{author: nil, title: "\"こんにちは\""} #一旦マップに戻す
     #IO.inspect(Map.from_struct(params)|> Enum.reject(fn {_, value} -> is_nil(value) end)) #>[title: "\"こんにちは\""]　
-    page = case page do
-      nil -> 0
-      "0" -> 0
-        _ ->
-          number_of_page = String.to_integer(page)
-          if number_of_page < 0 do
-            0
-          else
-            (number_of_page - 1) * 10
-          end
-      end
+
+    # page = case page do
+    #   nil -> 0
+    #   "0" -> 0
+    #     _ ->
+    #       number_of_page = String.to_integer(page)
+    #       if number_of_page < 0 do
+    #         0
+    #       else
+    #         (number_of_page - 1) * 10
+    #       end
+    #   end
     query = Map.from_struct(params)
     #nilを除外する(指定していない値がNULLになるのを回避するため)
     |> Enum.reject(fn {_, value} -> is_nil(value) end)
@@ -55,9 +58,9 @@ defmodule StackoverflowCloneB.Controller.Question.Index do
     |> Map.new()
     %Dodai.RetrieveDedicatedDataEntityListRequestQuery{
       query: query,
-      sort:  %{"createdAt" => -1},
-         limit: 10,
-      skip: page,
+      sort:  %{"createdAt" => 1},
+      # limit: 10,
+      # skip: page,
     }
   end
 end
