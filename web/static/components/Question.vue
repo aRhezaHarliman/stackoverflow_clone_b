@@ -109,18 +109,28 @@
     </div>
     <br>
     <div v-if="isLoggedIn()">
-      <div class="form-group comment-form">
-        <label for="form-comment">コメント追加</label>
-        <textarea
-          id="form-comment"
-          v-model="comment"
-          :maxlength="commentMaxLength"
-          class="comment-edit form-control"
-          minlength="1"
-          required/>
+      <div v-if="postcommentexpansion">
+        <div class="form-group comment-form">
+          <label for="form-comment">コメント追加</label>
+          <textarea
+            id="form-comment"
+            v-model="comment"
+            :maxlength="commentMaxLength"
+            class="comment-edit form-control"
+            minlength="1"
+            required/>
+          <button
+            class="btn btn-primary mb-2 btn-comment"
+            @click="submitComment">投稿</button>
+          <button
+          class="btn btn-outline-primary mb-2 btn-comment"
+          @click="posthide">キャンセル</button>
+        </div>
+      </div>
+      <div v-else>
         <button
-          class="btn btn-primary mb-2 btn-comment"
-          @click="submitComment">投稿</button>
+          class="btn btn-success btn-sm btn-comment"
+          @click="postexpansion">コメントをする</button>
       </div>
     </div>
   </div>
@@ -150,6 +160,7 @@ export default {
       editingTitle: '',
       vote: {},
       commentexpansion: false,
+      postcommentexpansion: false,
     };
   },
   computed: {
@@ -174,6 +185,12 @@ export default {
     },
     expansion() {
       this.commentexpansion = true;
+    },
+    postexpansion(){
+      this.postcommentexpansion = true;
+    },
+    posthide(){
+      this.postcommentexpansion = false;
     },
     hide() {
       this.commentexpansion = false;
