@@ -15,6 +15,29 @@
           :answer="answer"
           class="answer-item" />
       </div>
+      <br />
+      <div v-if="isLoggedIn()">
+        <form
+          class="answer-form"
+          @submit.prevent="submit">
+          <div class="form-group">
+            <h4>回答</h4>
+            <hr>
+            <textarea
+              id="form-body"
+              v-model="answerBody"
+              :maxlength="bodyMaxLength"
+              class="body-edit form-control"
+              minlength="1"
+              required/>
+          </div>
+          <div class="form-group">
+            <button
+              class="btn btn-primary mb-2"
+              type="submit">投稿</button>
+          </div>
+        </form>
+      </div>
     </div>
     <h1 v-else>404 (Not Found)</h1>
     <router-link :to="{ name: 'QuestionListPage'}">
@@ -35,7 +58,9 @@ export default {
     Answer,
   },
   data() {
-    return {};
+    return {
+      answerBody: '',
+    };
   },
   computed: {
     hasValidQuestion() {
@@ -62,6 +87,12 @@ export default {
     retrieveAnswers() {
       this.$store.dispatch('retrieveAnswers', { questionId: this.$route.params.id });
     },
+    submit() {
+      this.$store.dispatch('createAnswer', { questionId: this.$route.params.id, body: this.answerBody })
+        .then(() => {
+          this.$router.push({ path: `/question/${this.$route.params.id}` });
+        });
+    },
     // TODO LIKE/DISLIKE function
   },
 };
@@ -73,5 +104,8 @@ export default {
 }
 .answer-item {
   margin-left: 20px;
+}
+.body-edit {
+  height: 100px;
 }
 </style>
