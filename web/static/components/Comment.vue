@@ -81,6 +81,7 @@ export default {
     update() {
       this.$emit('update', { commentId: this.comment.id, body: this.editingBody });
       this.editing = false;
+      this.editingBody = '';
     },
   },
 };

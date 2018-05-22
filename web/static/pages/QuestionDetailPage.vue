@@ -93,6 +93,7 @@ export default {
         .then(() => {
           this.$router.push({ path: `/question/${this.$route.params.id}` });
         });
+      this.answerBody = '';
     },
     // TODO LIKE/DISLIKE function
   },

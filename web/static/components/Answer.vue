@@ -105,12 +105,14 @@ export default {
     update() {
       this.$store.dispatch('updateAnswer', { questionId: this.$route.params.id, id: this.answer.id, body: this.editingBody });
       this.editing = false;
+      this.editingBody = '';
     },
     submitComment() {
       this.$store.dispatch('createAnswerComment', { questionId: this.$route.params.id, answerId: this.answer.id, body: this.comment })
         .then(() => {
           this.$router.push({ path: `/question/${this.$route.params.id}` });
         });
+      this.comment = '';
     },
     updateComment({ commentId, body }) {
       this.$store.dispatch('updateAnswerComment', {

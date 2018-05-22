@@ -62,7 +62,6 @@
               </button>
             </span>
           </div>
-
         </div>
       </div>
     </div>
@@ -80,7 +79,7 @@
       <div class="form-group comment-form">
         <label for="form-comment">コメント追加</label>
         <textarea
-          id="form-cooment"
+          id="form-coment"
           v-model="comment"
           :maxlength="commentMaxLength"
           class="comment-edit form-control"
@@ -126,6 +125,7 @@ export default {
         .then(() => {
           this.$router.push({ path: `/question/${this.$route.params.id}` });
         });
+      this.comment = '';
     },
     updateComment({ commentId, body }) {
       this.$store.dispatch('updateQuestionComment', { questionId: this.$route.params.id, id: commentId, body: body });
@@ -141,6 +141,7 @@ export default {
     update() {
       this.$emit('update', { title: this.editingTitle, body: this.editingBody });
       this.editing = false;
+      this.editingBody = '';
     },
   },
 };
