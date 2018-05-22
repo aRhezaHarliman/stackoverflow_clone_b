@@ -55,8 +55,8 @@ defmodule StackoverflowCloneB.Controller.Question.Index do
     |> Map.new()
     %Dodai.RetrieveDedicatedDataEntityListRequestQuery{
       query: query,
-      sort:  %{"createdAt" => 1},
-      limit: 10,
+      sort:  %{"createdAt" => -1},
+         limit: 10,
       skip: page,
     }
   end

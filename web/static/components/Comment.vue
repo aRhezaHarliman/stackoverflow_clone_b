@@ -5,14 +5,21 @@
         class="comment-form"
         @submit.prevent="update">
         <div class="form-group">
-          <input
+          <!-- <input
             id="form-comment"
             v-model="editingBody"
             :maxlength="commentMaxLength"
             class="body-edit form-control"
             type="text"
             minlength="1"
-            required>
+            required> -->
+            <textarea
+              id="form-body"
+              v-model="editingBody"
+              :maxlength="bodyMaxLength"
+              class="body-edit form-control"
+              minlength="1"
+              required/>
         </div>
         <div class="form-group">
           <button
@@ -27,7 +34,7 @@
     </div>
     <div v-else>
       <div class="comment-body">
-        {{ comment.body }} <span class="additional">-- Posted at {{ comment.createdAt }} by
+        {{ comment.body }} <span class="additional"><br>-- Posted at {{ comment.createdAt }} by
           <router-link :to="{ name: 'UserDetailPage', params: { id: comment.userId }}">
             {{ comment.userId }}</router-link>
         </span>
@@ -37,9 +44,9 @@
           <button
             v-if="!editing"
             type="button"
-            class="edit-button btn btn-link"
+            class="edit-button btn-primary btn-sm"
             @click="startEdit">
-            更新
+            コメント更新
           </button>
         </span>
       </div>
@@ -80,4 +87,7 @@ export default {
 </script>
 
 <style scoped>
+.body-edit{
+  height:200px;
+}
 </style>

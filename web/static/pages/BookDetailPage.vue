@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     hasValidBook() {
-      return !_.isEmpty(this.book) && this.book.id === this.$route.params.id;
+       return !_.isEmpty(this.book) && this.book.id === this.$route.params.id;
     },
     book() {
       return this.$store.state.book;

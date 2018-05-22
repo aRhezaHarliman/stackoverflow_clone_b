@@ -1,7 +1,12 @@
 <template>
   <div>
     <div v-if="hasValidQuestion">
-      <question :question="question"/>
+      <question
+      :question="question"
+      class="question"
+      @update="updateQuestion"
+
+      />
     </div>
     <h1 v-else>404 (Not Found)</h1>
     <router-link :to="{ name: 'QuestionListPage'}">
@@ -42,10 +47,15 @@ export default {
     retrieveQuestion() {
       this.$store.dispatch('retrieveQuestion', { id: this.$route.params.id });
     },
-    // TODO ADD ANSWER and LIKE/DISLIKE function
+    updateQuestion({title,body}) {
+      this.$store.dispatch('updateQuestion', { id: this.$route.params.id,title,body });
+    },
   },
 };
 </script>
 
 <style scoped>
+.question {
+  margin-bottom: 20px;
+}
 </style>
