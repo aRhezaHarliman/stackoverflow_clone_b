@@ -69,7 +69,7 @@ export default {
       return !_.isEmpty(this.question) && this.question.id === this.$route.params.id;
     },
     question() {
-      return this.$store.state.question;
+      return {...this.$store.state.question,body:decodeURI(this.$store.state.question.body).replace(/\r?\n/g,'\n')};
     },
     answers() {
       return _.sortBy(this.$store.state.answers, 'createdAt').reverse();
@@ -84,7 +84,7 @@ export default {
       this.$store.dispatch('retrieveQuestion', { id: this.$route.params.id });
     },
     updateQuestion({ title, body }) {
-      this.$store.dispatch('updateQuestion', { id: this.$route.params.id, title, body });
+      this.$store.dispatch('updateQuestion', { id: this.$route.params.id, title, body:encodeURI(body) });
     },
     updateAnswer({ answerId, body }) {
       this.$store.dispatch('updateAnswer', { questionId: this.$route.params.id, id: answerId, body: body });

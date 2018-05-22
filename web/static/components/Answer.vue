@@ -28,7 +28,7 @@
     <div v-else>
       <div class="answer-body">{{ answer.body }}</div>
       <div class="additional">
-        Posted at {{ answer.createdAt }} by
+        --Posted at {{ answer.createdAt }} by
         <router-link :to="{ name: 'UserDetailPage', params: { id: answer.userId }}">
           {{ answer.userId }}</router-link>
       </div>
@@ -38,9 +38,9 @@
         <button
           v-if="!editing"
           type="button"
-          class="edit-button btn btn-link"
+          class="edit-button btn btn-primary btn-sm"
           @click="startEdit">
-          更新
+          回答を更新
         </button>
       </span>
       <hr>
@@ -56,6 +56,7 @@
     </div>
     <div v-if="isLoggedIn()">
       <div class="form-group comment-form">
+        <label for="form-comment">コメント追加</label>
         <textarea
           id="form-comment"
           v-model="comment"

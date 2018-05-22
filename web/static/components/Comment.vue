@@ -38,7 +38,7 @@
             type="button"
             class="edit-button btn-primary btn-sm"
             @click="startEdit">
-            コメント更新
+            コメントを更新
           </button>
         </span>
       </div>
@@ -81,6 +81,6 @@ export default {
 
 <style scoped>
 .body-edit{
-  height:80px;
+  height:200px;
 }
 </style>

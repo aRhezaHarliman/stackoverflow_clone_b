@@ -1,8 +1,12 @@
 <template>
   <div>
-    <div class="page-title">質問を見る</div>
+    <div class="page-title">投稿された質問一覧</div>
     <div>
-      <router-link to="question/create">質問する</router-link>
+      <router-link
+        to="question/create"
+        class="btn btn-primary mb-2"
+      >質問を新規作成
+      </router-link>
     </div>
     <hr>
     <div

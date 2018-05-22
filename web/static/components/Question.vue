@@ -45,7 +45,7 @@
                 class="vote" />
             </div>
             <div class="question-body">
-              <div class="body">【質問内容】<br><br>{{ question.body }}</div>
+              <div class="body">【質問内容】<br><br><span style="white-space:pre">{{ question.body }}</span></div>
               <div class="additional">
                 <span v-if="!editing">
                   --Posted at {{ question.createdAt }} by
@@ -67,20 +67,52 @@
       </div>
     </div>
     <br >
-    <div
-      v-for="comment in question.comments"
-      :key="comment.id"
-      class="comments">
-      <comment
-        :comment="comment"
-        @update="updateComment" />
-      <hr>
+    <div v-if="question.comments.length > 0">
+      <div v-if="commentexpansion">
+        <div
+          v-for="comment in question.comments"
+          :key="comment.id"
+          class="comments">
+          <comment
+            :comment="comment"
+            @update="updateComment" />
+          <hr>
+        </div>
+        <div v-if="question.comments.length > 2">
+          <button
+            type="button"
+            class="btn btn-link"
+            @click="hide">
+            コメントを非表示
+          </button>
+        </div>
+      </div>
+      <div v-else>
+        <div
+          v-for="comment in question.comments.slice(0,2)"
+          :key="comment.id"
+          class="comments">
+          <comment
+            :comment="comment"
+            @update="updateComment" />
+          <hr>
+        </div>
+        <div v-if="question.comments.length > 2">
+          <button
+            type="button"
+            class="btn btn-link"
+            @click="expansion">
+            全コメント({{ question.comments.length }}件)を表示
+          </button>
+        </div>
+      </div>
     </div>
+    <br>
     <div v-if="isLoggedIn()">
       <div class="form-group comment-form">
         <label for="form-comment">コメント追加</label>
         <textarea
-          id="form-coment"
+          id="form-comment"
           v-model="comment"
           :maxlength="commentMaxLength"
           class="comment-edit form-control"
@@ -117,6 +149,7 @@ export default {
       editingBody: '',
       editingTitle: '',
       vote: {},
+      commentexpansion: false,
     };
   },
   computed: {
@@ -138,6 +171,12 @@ export default {
       this.editing = true;
       this.editingBody = this.question.body;
       this.editingTitle = this.question.title;
+    },
+    expansion() {
+      this.commentexpansion = true;
+    },
+    hide() {
+      this.commentexpansion = false;
     },
     cancelEdit() {
       this.editing = false;

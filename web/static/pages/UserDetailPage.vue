@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="page-title">ユーザー詳細</div>
+    <div class="page-title">ユーザー詳細({{ this.$route.params.id }})</div>
+
     <hr>
     <div class="question-list list">
       <div class="list-title">質問一覧</div>
