@@ -25,14 +25,6 @@
             @submit.prevent="update">
             <div class="form-group">
               <label for="form-body">質問内容</label>
-              <!-- <input
-                id="form-body"
-                v-model="editingBody"
-                :maxlength="bodyMaxLength"
-                class="body-edit form-control"
-                type="text"
-                minlength="1"
-                required> -->
             </div>
             <textarea
               id="form-body"
@@ -40,7 +32,7 @@
               :maxlength="bodyMaxLength"
               class="body-edit form-control"
               minlength="1"
-              required/>
+              required />
             <div class="form-group">
               <br>
               <button
@@ -49,7 +41,7 @@
               <button
                 class="cancel-edit-button btn btn-outline-primary mb-2"
                 type="submit"
-                @click.privent="cancelEdit">キャンセル</button>
+                @click.prevent="cancelEdit">キャンセル</button>
             </div>
           </form>
         </div>
@@ -65,8 +57,7 @@
                 v-if="isValidUser(question.userId)"
                 type="button"
                 class="btn btn-primary btn-sm"
-                @click="startEdit"
-              >
+                @click="startEdit">
                 質問の更新
               </button>
             </span>
@@ -88,21 +79,13 @@
     <div v-if="isLoggedIn()">
       <div class="form-group comment-form">
         <label for="form-comment">コメント追加</label>
-        <!-- <input
-          id="form-comment"
+        <textarea
+          id="form-cooment"
           v-model="comment"
           :maxlength="commentMaxLength"
-          class="title-edit form-control"
-          type="text"
+          class="comment-edit form-control"
           minlength="1"
-          required> -->
-          <textarea
-            id="form-cooment"
-            v-model="comment"
-            :maxlength="commentMaxLength"
-            class="comment-edit form-control"
-            minlength="1"
-            required/>
+          required/>
         <button
           class="btn btn-primary mb-2 btn-comment"
           @click="submitComment">投稿</button>
@@ -147,15 +130,15 @@ export default {
     updateComment({ commentId, body }) {
       this.$store.dispatch('updateQuestionComment', { questionId: this.$route.params.id, id: commentId, body: body });
     },
-    startEdit(){
+    startEdit() {
       this.editing = true;
       this.editingBody = this.question.body;
       this.editingTitle = this.question.title;
     },
-    cancelEdit(){
+    cancelEdit() {
       this.editing = false;
     },
-    update(){
+    update() {
       this.$emit('update', { title: this.editingTitle, body: this.editingBody });
       this.editing = false;
     },
@@ -179,7 +162,7 @@ export default {
   height:200px;
 }
 .comment-edit{
-  height:200px;
+  height:80px;
 }
 .title-edit{
   height:20px;

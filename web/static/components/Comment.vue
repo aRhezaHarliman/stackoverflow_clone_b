@@ -13,13 +13,13 @@
             type="text"
             minlength="1"
             required> -->
-            <textarea
-              id="form-body"
-              v-model="editingBody"
-              :maxlength="bodyMaxLength"
-              class="body-edit form-control"
-              minlength="1"
-              required/>
+          <textarea
+            id="form-body"
+            v-model="editingBody"
+            :maxlength="bodyMaxLength"
+            class="body-edit form-control"
+            minlength="1"
+            required/>
         </div>
         <div class="form-group">
           <button
@@ -88,6 +88,6 @@ export default {
 
 <style scoped>
 .body-edit{
-  height:200px;
+  height:80px;
 }
 </style>

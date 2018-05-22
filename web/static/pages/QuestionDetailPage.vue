@@ -1,7 +1,8 @@
 <template>
   <div>
     <div v-if="hasValidQuestion">
-      <question :question="question"
+      <question
+        :question="question"
         class="question"
         @update="updateQuestion"/>
       <br>
@@ -15,7 +16,7 @@
           :answer="answer"
           class="answer-item" />
       </div>
-      <br />
+      <br >
       <div v-if="isLoggedIn()">
         <form
           class="answer-form"
@@ -71,7 +72,7 @@ export default {
     },
     answers() {
       return _.sortBy(this.$store.state.answers, 'createdAt').reverse();
-    }
+    },
   },
   mounted() {
     this.retrieveQuestion();
@@ -81,8 +82,8 @@ export default {
     retrieveQuestion() {
       this.$store.dispatch('retrieveQuestion', { id: this.$route.params.id });
     },
-    updateQuestion({title,body}) {
-      this.$store.dispatch('updateQuestion', { id: this.$route.params.id,title,body });
+    updateQuestion({ title, body }) {
+      this.$store.dispatch('updateQuestion', { id: this.$route.params.id, title, body });
     },
     retrieveAnswers() {
       this.$store.dispatch('retrieveAnswers', { questionId: this.$route.params.id });

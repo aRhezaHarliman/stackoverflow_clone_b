@@ -33,16 +33,16 @@
           {{ answer.userId }}</router-link>
       </div>
       <span
-          v-if="isValidUser(answer.userId)"
-          class="additional">
-          <button
-            v-if="!editing"
-            type="button"
-            class="edit-button btn btn-link"
-            @click="startEdit">
-            更新
-          </button>
-        </span>
+        v-if="isValidUser(answer.userId)"
+        class="additional">
+        <button
+          v-if="!editing"
+          type="button"
+          class="edit-button btn btn-link"
+          @click="startEdit">
+          更新
+        </button>
+      </span>
       <hr>
     </div>
     <div
@@ -56,14 +56,14 @@
     </div>
     <div v-if="isLoggedIn()">
       <div class="form-group comment-form">
-        <input
+        <textarea
           id="form-comment"
           v-model="comment"
           :maxlength="commentMaxLength"
-          class="title-edit form-control"
+          class="comment-edit form-control"
           type="text"
           minlength="1"
-          required>
+          required />
         <button
           class="btn btn-primary mb-2 btn-comment"
           @click="submitComment">投稿</button>
@@ -84,12 +84,14 @@ export default {
     answer: {
       type: Object,
       requeired: true,
+      default: function () {},
     },
   },
   data() {
     return {
       editing: false,
       editingBody: '',
+      comment: '',
     };
   },
   methods: {
@@ -111,14 +113,19 @@ export default {
         });
     },
     updateComment({ commentId, body }) {
-      this.$store.dispatch('updateAnswerComment', { questionId: this.$route.params.id, answerId: this.answer.id, id: commentId, body: body });
+      this.$store.dispatch('updateAnswerComment', {
+        questionId: this.$route.params.id, answerId: this.answer.id, id: commentId, body: body,
+      });
     },
-  }
+  },
 };
 </script>
 
 <style scoped>
 .btn-comment {
   margin-top: 10px;
+}
+.comment-edit {
+  height:80px;
 }
 </style>
