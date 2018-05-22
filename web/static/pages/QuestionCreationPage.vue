@@ -22,6 +22,7 @@
           v-model="body"
           :maxlength="bodyMaxLength"
           class="body-edit form-control"
+          type="text"
           minlength="1"
           required/>
       </div>

@@ -5,14 +5,6 @@
         class="comment-form"
         @submit.prevent="update">
         <div class="form-group">
-          <!-- <input
-            id="form-comment"
-            v-model="editingBody"
-            :maxlength="commentMaxLength"
-            class="body-edit form-control"
-            type="text"
-            minlength="1"
-            required> -->
           <textarea
             id="form-body"
             v-model="editingBody"
