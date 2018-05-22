@@ -45,6 +45,30 @@
         </span>
       <hr>
     </div>
+    <div
+      v-for="comment in answer.comments"
+      :key="comment.id"
+      class="comments">
+      <comment
+        :comment="comment"
+        @update="updateComment" />
+      <hr>
+    </div>
+    <div v-if="isLoggedIn()">
+      <div class="form-group comment-form">
+        <input
+          id="form-comment"
+          v-model="comment"
+          :maxlength="commentMaxLength"
+          class="title-edit form-control"
+          type="text"
+          minlength="1"
+          required>
+        <button
+          class="btn btn-primary mb-2 btn-comment"
+          @click="submitComment">投稿</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -64,7 +88,6 @@ export default {
   },
   data() {
     return {
-      answer: '',
       editing: false,
       editingBody: '',
     };
@@ -81,9 +104,21 @@ export default {
       this.$store.dispatch('updateAnswer', { questionId: this.$route.params.id, id: this.answer.id, body: this.editingBody });
       this.editing = false;
     },
+    submitComment() {
+      this.$store.dispatch('createAnswerComment', { questionId: this.$route.params.id, answerId: this.answer.id, body: this.comment })
+        .then(() => {
+          this.$router.push({ path: `/question/${this.$route.params.id}` });
+        });
+    },
+    updateComment({ commentId, body }) {
+      this.$store.dispatch('updateAnswerComment', { questionId: this.$route.params.id, answerId: this.answer.id, id: commentId, body: body });
+    },
   }
 };
 </script>
 
 <style scoped>
+.btn-comment {
+  margin-top: 10px;
+}
 </style>
