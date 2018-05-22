@@ -5,7 +5,7 @@
         class="question"
         @update="updateQuestion"/>
       <br>
-      <h3>{{ answers.length }}件の回答</h3>
+      <h5>{{ answers.length }}件の回答</h5>
       <hr>
       <div
         v-for="answer in answers"
