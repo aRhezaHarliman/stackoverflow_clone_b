@@ -38,21 +38,30 @@
         </div>
         <div v-else>
           <div class="page-title">{{ question.title }}</div>
-          <div class="body">【質問内容】<br><br>{{ question.body }}</div>
-          <div class="additional">
-            <span v-if="!editing">
-              --Posted at {{ question.createdAt }} by
-              <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
-                {{ question.userId }}</router-link>
-              <br>
-              <button
-                v-if="isValidUser(question.userId)"
-                type="button"
-                class="btn btn-primary btn-sm"
-                @click="startEdit">
-                質問の更新
-              </button>
-            </span>
+          <div class="question-container">
+            <div class="info-area">
+              <vote
+                :vote="vote"
+                class="vote" />
+            </div>
+            <div class="question-body">
+              <div class="body">【質問内容】<br><br>{{ question.body }}</div>
+              <div class="additional">
+                <span v-if="!editing">
+                  --Posted at {{ question.createdAt }} by
+                  <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
+                    {{ question.userId }}</router-link>
+                  <br>
+                  <button
+                    v-if="isValidUser(question.userId)"
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    @click="startEdit">
+                    質問の更新
+                  </button>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -87,11 +96,13 @@
 
 <script>
 import Comment from '@/components/Comment';
+import Vote from '@/components/Vote';
 
 export default {
   name: 'Question',
   components: {
     Comment,
+    Vote,
   },
   props: {
     question: {
@@ -105,6 +116,7 @@ export default {
       editing: false,
       editingBody: '',
       editingTitle: '',
+      vote: {},
     };
   },
   computed: {
@@ -162,5 +174,11 @@ export default {
 }
 .comment-list {
   margin-left: 10px;
+}
+.question-body {
+  margin-left: 40px;
+}
+.vote {
+  position: absolute;
 }
 </style>
