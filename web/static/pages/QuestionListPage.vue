@@ -62,7 +62,7 @@ export default {
     },
     getPages() {
       const pages = [];
-      const maxPage = (this.$store.state.questionCount % 10) + 1;
+      const maxPage = Math.ceil(this.$store.state.questionCount / 10);
       for (let i = 1; i <= maxPage; i += 1) {
         pages.push(i);
       }
