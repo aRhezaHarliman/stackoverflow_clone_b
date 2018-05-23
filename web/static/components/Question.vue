@@ -41,6 +41,7 @@
 <!-- 質問内容を表示 -->
         </div>
         <div v-else>
+<<<<<<< HEAD
           <div class="page-title">{{ question.title }}</div>
           <div class="question-container">
             <div class="info-area">
@@ -56,12 +57,11 @@
                   <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
                     {{ question.userId }}</router-link>
                   <br>
-                  <br>
     <!-- 質問更新ボタン -->
                   <button
                     v-if="isValidUser(question.userId)"
                     type="button"
-                    class="btn btn-primary btn-sm"
+                    class="square_btn_question btn-sm"
                     @click="startEdit">
                     質問を更新
                   </button>
@@ -74,6 +74,7 @@
     </div>
     <br >
 <!-- コメント表示部 -->
+    【コメント】
     <div v-if="question.comments.length > 0">
       <div v-if="commentexpansion">
         <div
@@ -139,10 +140,14 @@
       </div>
       <div v-else>
 <!-- コメントをするボタン -->
-        <button
+        <!-- <button
           harf = "#"
           class="btn btn-success btn-sm btn-comment"
-          @click="postexpansion">この質問にコメントする</button>
+          @click="postexpansion">この質問にコメントする</button> -->
+          <button
+            harf = "#"
+            class="square_btn btn-sm"
+            @click="postexpansion">この質問にコメントする</button>
       </div>
     </div>
     <br><br><br>
@@ -244,10 +249,38 @@ export default {
 .comment-list {
   margin-left: 10px;
 }
+<<<<<<< HEAD
 .question-body {
   margin-left: 40px;
 }
 .vote {
   position: absolute;
+=======
+.square_btn {
+    display: inline-block;
+    padding: 0.3em 1em;
+    text-decoration: none;
+    color: #67c5ff;
+    border: solid 2px #67c5ff;
+    border-radius: 3000px;
+    transition: .4s;
+}
+.square_btn:hover {
+    background: #67c5ff;
+    color: white;
+}
+.square_btn_question {
+    display: inline-block;
+    padding: 0.3em 1em;
+    text-decoration: none;
+    color: #F89A1F;
+    border: solid 2px #F89A1F;
+    border-radius: 3000px;
+    transition: .4s;
+}
+.square_btn_question:hover {
+    background: #F89A1F;
+    color: white;
+>>>>>>> ボタンのデザインの変更と微細な修正
 }
 </style>

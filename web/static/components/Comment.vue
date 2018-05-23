@@ -33,13 +33,15 @@
         <span
           v-if="isValidUser(comment.userId)"
           class="additional">
-          <button
-            v-if="!editing"
-            type="button"
-            class="edit-button btn-primary btn-sm"
-            @click="startEdit">
-            コメントを更新
-          </button>
+          <div align="right">
+            <button
+              v-if="!editing"
+              type="button"
+              class="square_btn_comment2 btn-sm"
+              @click="startEdit">
+              このコメントを更新
+            </button>
+          </div>
         </span>
       </div>
     </div>
@@ -83,4 +85,17 @@ export default {
 .body-edit{
   height:200px;
 }
+.square_btn_comment2 {
+    display: inline-block;
+    padding: 0.3em 1em;
+    text-decoration: none;
+    color: #F89A1F;
+    border: solid 2px #F89A1F;
+    border-radius: 3000px;
+    transition: .4s;
+}
+.square_btn_comment2:hover {
+    background: #F89A1F;
+    color: white;
+  }
 </style>

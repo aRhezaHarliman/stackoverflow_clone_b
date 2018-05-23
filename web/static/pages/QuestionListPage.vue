@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="page-title">投稿された質問一覧</div>
+    <div class="page-title"><center>【投稿された質問一覧】</center></div>
+    <br><br><br>
     <div>
       <router-link
         to="question/create"

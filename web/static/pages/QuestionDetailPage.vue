@@ -42,9 +42,11 @@
       </div>
     </div>
     <h1 v-else>404 (Not Found)</h1>
+    <br>
     <router-link :to="{ name: 'QuestionListPage'}">
       一覧に戻る
     </router-link>
+    <br><br><br>
   </div>
 </template>
 

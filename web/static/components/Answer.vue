@@ -1,11 +1,13 @@
 <template>
 <!-- 回答編集部 -->
   <div>
+    【回答内容】
     <div v-if="editing">
       <form
         class="answer-form"
         @submit.prevent="update">
         <div class="form-group">
+          <br>
           <textarea
             id="form-answer"
             v-model="editingBody"
@@ -29,7 +31,7 @@
     </div>
 <!-- 回答を表示 -->
     <div v-else>
-      <br><br>
+      <br>
       <div class="answer-body"><big>{{ answer.body }}</big></div>
       <div class="additional">
         --Posted at {{ answer.createdAt }} by
@@ -43,14 +45,17 @@
         <button
           v-if="!editing"
           type="button"
-          class="edit-button btn btn-primary btn-sm"
+          class="square_btn_answer btn-sm"
           @click="startEdit">
-          回答を更新
+          この回答を更新
         </button>
+        <br><br>
       </span>
-      <hr>
     </div>
 <!-- コメント表示部 -->
+    <br>
+  【コメント】
+    <br>
     <div v-if="answer.comments.length > 0">
       <div v-if="commentexpansion">
         <div
@@ -118,11 +123,11 @@
 <!-- コメントをするボタン -->
       <div v-else>
         <button
-          class="btn btn-success btn-sm btn-comment"
+          class="square_btn_comment btn-sm"
           @click="postexpansion">この回答にコメントする</button>
       </div>
     </div>
-    <br><br><br>
+    <br><hr style="border:0;border-top:thick dashed gray;">
   </div>
 </template>
 
@@ -200,5 +205,31 @@ export default {
 }
 .body-edit{
   height:200px;
+}
+.square_btn_comment {
+    display: inline-block;
+    padding: 0.3em 1em;
+    text-decoration: none;
+    color: #67c5ff;
+    border: solid 2px #67c5ff;
+    border-radius: 3000px;
+    transition: .4s;
+}
+.square_btn_answer {
+    display: inline-block;
+    padding: 0.3em 1em;
+    text-decoration: none;
+    color: #F89A1F;
+    border: solid 2px #F89A1F;
+    border-radius: 3000px;
+    transition: .4s;
+}
+.square_btn_comment:hover {
+    background: #67c5ff;
+    color: white;
+}
+.square_btn_answer:hover {
+    background: #F89A1F;
+    color: white;
 }
 </style>
