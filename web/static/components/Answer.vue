@@ -103,7 +103,7 @@ export default {
       this.editing = false;
     },
     update() {
-      this.$store.dispatch('updateAnswer', { questionId: this.$route.params.id, id: this.answer.id, body: this.editingBody });
+      this.$emit('update', { answerId: this.answer.id, body: this.editingBody });
       this.editing = false;
       this.editingBody = '';
     },

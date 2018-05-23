@@ -11,7 +11,7 @@ describe('QuestionListPage', function () {
   let sandbox;
   let retrieveQuestionsStub;
   const questions = [{
-    id: 'bookX',
+    id: 'questionX',
     title: 'titleX',
     userId: 'userX',
     comments: [],

@@ -1,22 +1,5 @@
 <template>
   <div>
-    <div v-if="editing">
-      <div class="form-group">
-        <label for="form-title">タイトル</label>
-        <input
-          id="form-title"
-          v-model="editingTitle"
-          :maxlength="titleMaxLength"
-          class="title-edit form-control"
-          type="text"
-          minlength="1"
-          required>
-      </div>
-    </div>
-    <div v-else>
-      <div class="page-title">{{ question.title }}</div>
-    </div>
-    <hr>
     <div class="main-area">
       <div class="content-area">
         <div v-if ="editing">
@@ -24,16 +7,24 @@
             class="form-body"
             @submit.prevent="update">
             <div class="form-group">
+              <label for="form-title">タイトル</label>
+              <input
+                id="form-title"
+                v-model="editingTitle"
+                :maxlength="titleMaxLength"
+                class="title-edit form-control"
+                type="text"
+                minlength="1"
+                required >
+              <hr>
               <label for="form-body">質問内容</label>
-            </div>
-            <textarea
-              id="form-body"
-              v-model="editingBody"
-              :maxlength="bodyMaxLength"
-              class="body-edit form-control"
-              minlength="1"
-              required />
-            <div class="form-group">
+              <textarea
+                id="form-body"
+                v-model="editingBody"
+                :maxlength="bodyMaxLength"
+                class="body-edit form-control"
+                minlength="1"
+                required />
               <br>
               <button
                 class="btn btn-primary mb-2"
@@ -46,6 +37,7 @@
           </form>
         </div>
         <div v-else>
+          <div class="page-title">{{ question.title }}</div>
           <div class="body">【質問内容】<br><br>{{ question.body }}</div>
           <div class="additional">
             <span v-if="!editing">

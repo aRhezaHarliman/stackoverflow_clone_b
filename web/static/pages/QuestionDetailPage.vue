@@ -14,7 +14,8 @@
         class="answers">
         <answer
           :answer="answer"
-          class="answer-item" />
+          class="answer-item"
+          @update="updateAnswer" />
       </div>
       <br >
       <div v-if="isLoggedIn()">
@@ -84,6 +85,9 @@ export default {
     },
     updateQuestion({ title, body }) {
       this.$store.dispatch('updateQuestion', { id: this.$route.params.id, title, body });
+    },
+    updateAnswer({ answerId, body }) {
+      this.$store.dispatch('updateAnswer', { questionId: this.$route.params.id, id: answerId, body: body });
     },
     retrieveAnswers() {
       this.$store.dispatch('retrieveAnswers', { questionId: this.$route.params.id });
