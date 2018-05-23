@@ -23,8 +23,9 @@ defmodule StackoverflowCloneB.Controller.Question.Index do
         ErrorJson.json_by_error(conn, BadRequestError.new())
       {:ok, validated} ->
         #IO.inspect query_params #> [title: "\"こんにちは\""]
-        query = if Map.has_key?(query_params, "page") do
-          number_of_page = String.to_integer(query_params["page"])
+        request_header = conn.request.headers
+        query = if Map.has_key?(request_header, "page") do
+          number_of_page = String.to_integer(conn.request.headers["page"])
           convert_to_dodai_req_query(validated, number_of_page) # Pagination TODO
         else
           convert_to_dodai_req_query(validated)
