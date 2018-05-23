@@ -24,9 +24,7 @@ defmodule StackoverflowCloneB.Controller.Vote.Create do
           if user_liked do
             ErrorJson.json_by_error(conn, BadRequestError.new())
           else 
-            available_dislikes = Enum.drop_while(available_dislikes, fn(item) -> 
-              item == user_id
-            end)
+            available_dislikes = List.delete(available_dislikes, user_id)
             available_likes = available_likes ++ [user_id]
             # add id to like list
             request_body = %{
@@ -43,9 +41,7 @@ defmodule StackoverflowCloneB.Controller.Vote.Create do
           if user_disliked do
             ErrorJson.json_by_error(conn, BadRequestError.new())
           else
-            available_likes = Enum.drop_while(available_likes, fn(item) -> 
-              item == user_id
-            end) 
+            available_likes = List.delete(available_likes, user_id)
             available_dislikes = available_dislikes ++ [user_id]
             # add id to dislike list
             request_body = %{
