@@ -12,7 +12,7 @@
     <hr>
     <div
       v-for="question in questions"
-      :key="question.id" >
+      :key="question.id">
       <h5 class="title">
         <router-link :to="{ name: 'QuestionDetailPage', params: { id: question.id }}">
           {{ question.title }}
@@ -24,22 +24,24 @@
       </div>
       <hr>
     </div>
+
     <div
       class="pagination"
       align="center" >
       <div v-if="!isFirstPage">
         <a
           class="btn-link btn-prev"
-          @click="previous()">&laquo;</a>
+          @click="previousPage">&laquo;</a>
       </div>
       <a
         v-for="n in getPages"
         :key="n"
+        :class="{ active: isActive }"
         @click="retrieveQuestionsByPage(n)">{{ n }}</a>
       <div v-if="!isLastPage">
         <a
           class="btn-link btn-next"
-          @click="next()">&raquo;</a>
+          @click="nextPage">&raquo;</a>
       </div>
     </div>
   </div>
@@ -54,6 +56,9 @@ export default {
     return {
       currentPage: 1,
       maxPage: 0,
+      isFirstPage: true,
+      isLastPage: false,
+      isActive: false,
     };
   },
   computed: {
@@ -62,17 +67,11 @@ export default {
     },
     getPages() {
       const pages = [];
-      const maxPage = Math.ceil(this.$store.state.questionCount / 10);
-      for (let i = 1; i <= maxPage; i += 1) {
+      const maxPageCount = Math.ceil(this.$store.state.questionCount / 10);
+      for (let i = 1; i <= maxPageCount; i += 1) {
         pages.push(i);
       }
       return pages;
-    },
-    isFirstPage() {
-      return (this.currentPage <= 1);
-    },
-    isLastPage() {
-      return (this.currentPage >= this.$store.state.questionsCount);
     },
   },
   mounted() {
@@ -86,20 +85,37 @@ export default {
     retrieveQuestions() {
       this.$store.dispatch('retrieveQuestions');
     },
-    next() {
-      if (this.$store.state.questionsCount > (this.currentPage + 1)) {
+    updatePagination() {
+      const maxPageCount = Math.ceil(this.$store.state.questionCount / 10);
+      this.maxPage = maxPageCount;
+      this.isFirstPage = false;
+      this.isLastPage = false;
+      if (this.currentPage <= 1) {
+        this.isFirstPage = true;
+      }
+      if (this.currentPage >= this.maxPage) {
+        this.isLastPage = true;
+      }
+    },
+    nextPage() {
+      if (this.maxPage >= (this.currentPage + 1)) {
         this.currentPage += 1;
         this.retrieveQuestionsByPage(this.currentPage);
       }
     },
-    previous() {
-      if ((this.currentPage - 1) <= 0) {
+    previousPage() {
+      if ((this.currentPage - 1) >= 0) {
         this.currentPage -= 1;
         this.retrieveQuestionsByPage(this.currentPage);
       }
     },
     retrieveQuestionsByPage(page) {
-      this.$store.dispatch('retrieveQuestionsByPage', { page: page });
+      this.$store.dispatch('retrieveQuestionsByPage', { page: page })
+        .then(() => {
+          this.currentPage = page;
+          this.updatePagination();
+          // this.getPages();
+        });
     },
   },
 };
