@@ -9,6 +9,7 @@ import router from '@/router';
 describe('QuestionListPage', function () {
   let store;
   let sandbox;
+  let retrieveQuestionsCountStub;
   let retrieveQuestionsStub;
   const questions = [{
     id: 'questionX',
@@ -23,12 +24,15 @@ describe('QuestionListPage', function () {
   beforeEach(function () {
     sandbox = sinon.sandbox.create();
     retrieveQuestionsStub = sandbox.stub().callsFake(() => Promise.resolve());
+    retrieveQuestionsCountStub = sandbox.stub().callsFake(() => Promise.resolve());
     store = new Vuex.Store({
       state: {
         questions,
       },
       actions: {
-        retrieveQuestions: retrieveQuestionsStub,
+        // retrieveQuestions: retrieveQuestionsStub,
+        retrieveQuestionsCount: retrieveQuestionsCountStub,
+        retrieveQuestionsByPage: retrieveQuestionsStub,
       },
     });
   });

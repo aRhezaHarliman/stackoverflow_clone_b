@@ -10,6 +10,7 @@ export const state = {
   question: {},
   answers: [],
   questions: [],
+  questionCount: {},
   email: localStorage.getItem('email') || '',
   key: localStorage.getItem('key') || '',
   id: localStorage.getItem('id') || '',
@@ -25,6 +26,9 @@ export const mutations = {
   },
   updateQuestions(state, questions) {
     state.questions = questions;
+  },
+  updateQuestionCount(state, questionCount) {
+    state.questionCount = questionCount;
   },
   addQuestion(state, question) {
     state.questions.push(question);
@@ -97,6 +101,18 @@ export const actions = {
     )
       .then(({ data }) => {
         commit('updateQuestion', data);
+      });
+  },
+  retrieveQuestionsCount({ commit }) {
+    return HttpClient.get('/v1/question/count')
+      .then(({ data }) => {
+        commit('updateQuestionCount', data.matched);
+      });
+  },
+  retrieveQuestionsByPage({ commit }, { page }) {
+    return HttpClient.get('/v1/question/', { headers: { page: page } })
+      .then(({ data }) => {
+        commit('updateQuestions', data);
       });
   },
   retrieveQuestions({ commit }, { userId } = {}) {
