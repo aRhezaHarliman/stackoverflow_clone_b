@@ -1,7 +1,9 @@
 <template>
+<!-- 質問タイトル入力部 -->
   <div>
     <div class="main-area">
       <div class="content-area">
+<!-- 質問内容入力部 -->
         <div v-if ="editing">
           <form
             class="form-body"
@@ -26,6 +28,7 @@
                 minlength="1"
                 required />
               <br>
+<!-- 質問編集の保存/キャンセルボタン -->
               <button
                 class="btn btn-primary mb-2"
                 type="submit">保存</button>
@@ -35,6 +38,7 @@
                 @click.prevent="cancelEdit">キャンセル</button>
             </div>
           </form>
+<!-- 質問内容を表示 -->
         </div>
         <div v-else>
           <div class="page-title">{{ question.title }}</div>
@@ -45,19 +49,21 @@
                 class="vote" />
             </div>
             <div class="question-body">
-              <div class="body">【質問内容】<br><br><span style="white-space:pre">{{ question.body }}</span></div>
+              <div class="body">【質問内容】<br><br><span style="white-space:pre"><big>{{ question.body }}</big></span></div>
               <div class="additional">
                 <span v-if="!editing">
                   --Posted at {{ question.createdAt }} by
                   <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
                     {{ question.userId }}</router-link>
                   <br>
+                  <br>
+    <!-- 質問更新ボタン -->
                   <button
                     v-if="isValidUser(question.userId)"
                     type="button"
                     class="btn btn-primary btn-sm"
                     @click="startEdit">
-                    質問の更新
+                    質問を更新
                   </button>
                 </span>
               </div>
@@ -67,6 +73,7 @@
       </div>
     </div>
     <br >
+<!-- コメント表示部 -->
     <div v-if="question.comments.length > 0">
       <div v-if="commentexpansion">
         <div
@@ -78,6 +85,7 @@
             @update="updateComment" />
           <hr>
         </div>
+<!-- コメント非表示ボタン -->
         <div v-if="question.comments.length > 2">
           <button
             type="button"
@@ -98,6 +106,7 @@
           <hr>
         </div>
         <div v-if="question.comments.length > 2">
+<!-- コメント表示ボタン -->
           <button
             type="button"
             class="btn btn-link"
@@ -107,7 +116,7 @@
         </div>
       </div>
     </div>
-    <br>
+<!-- コメント追加部 -->
     <div v-if="isLoggedIn()">
       <div v-if="postcommentexpansion">
         <div class="form-group comment-form">
@@ -119,6 +128,7 @@
             class="comment-edit form-control"
             minlength="1"
             required/>
+<!-- コメント投稿/キャンセルボタン -->
           <button
             class="btn btn-primary mb-2 btn-comment"
             @click="submitComment">投稿</button>
@@ -128,11 +138,14 @@
         </div>
       </div>
       <div v-else>
+<!-- コメントをするボタン -->
         <button
+          harf = "#"
           class="btn btn-success btn-sm btn-comment"
-          @click="postexpansion">コメントをする</button>
+          @click="postexpansion">この質問にコメントする</button>
       </div>
     </div>
+    <br><br><br>
   </div>
 </template>
 

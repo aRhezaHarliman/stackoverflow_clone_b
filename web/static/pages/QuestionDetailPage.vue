@@ -112,6 +112,6 @@ export default {
   margin-left: 20px;
 }
 .body-edit {
-  height: 100px;
+  height: 200px;
 }
 </style>

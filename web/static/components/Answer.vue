@@ -1,4 +1,5 @@
 <template>
+<!-- 回答編集部 -->
   <div>
     <div v-if="editing">
       <form
@@ -15,6 +16,7 @@
             required />
         </div>
         <div class="form-group">
+<!-- 回答編集保存/キャンセルボタン -->
           <button
             class="btn btn-primary mb-2"
             type="submit">保存</button>
@@ -25,13 +27,16 @@
         </div>
       </form>
     </div>
+<!-- 回答を表示 -->
     <div v-else>
-      <div class="answer-body">{{ answer.body }}</div>
+      <br><br>
+      <div class="answer-body"><big>{{ answer.body }}</big></div>
       <div class="additional">
         --Posted at {{ answer.createdAt }} by
         <router-link :to="{ name: 'UserDetailPage', params: { id: answer.userId }}">
           {{ answer.userId }}</router-link>
       </div>
+<!-- 回答を更新するかボタン -->
       <span
         v-if="isValidUser(answer.userId)"
         class="additional">
@@ -45,31 +50,79 @@
       </span>
       <hr>
     </div>
-    <div
-      v-for="comment in answer.comments"
-      :key="comment.id"
-      class="comments">
-      <comment
-        :comment="comment"
-        @update="updateComment" />
-      <hr>
-    </div>
-    <div v-if="isLoggedIn()">
-      <div class="form-group comment-form">
-        <label for="form-comment">コメント追加</label>
-        <textarea
-          id="form-comment"
-          v-model="comment"
-          :maxlength="commentMaxLength"
-          class="comment-edit form-control"
-          type="text"
-          minlength="1"
-          required />
-        <button
-          class="btn btn-primary mb-2 btn-comment"
-          @click="submitComment">投稿</button>
+<!-- コメント表示部 -->
+    <div v-if="answer.comments.length > 0">
+      <div v-if="commentexpansion">
+        <div
+          v-for="comment in answer.comments"
+          :key="comment.id"
+          class="comments">
+          <comment
+            :comment="comment"
+            @update="updateComment" />
+          <hr>
+        </div>
+<!-- コメント非表示ボタン -->
+        <div v-if="answer.comments.length > 1">
+          <button
+            type="button"
+            class="btn btn-link"
+            @click="commenthide">
+            コメントを非表示
+          </button>
+        </div>
+      </div>
+      <div v-else>
+        <div
+          v-for="comment in answer.comments.slice(0,1)"
+          :key="comment.id"
+          class="comments">
+          <comment
+            :comment="comment"
+            @update="updateComment" />
+          <hr>
+        </div>
+        <div v-if="answer.comments.length > 1">
+<!-- コメント表示ボタン -->
+          <button
+            type="button"
+            class="btn btn-link"
+            @click="answercommentexpansion">
+            全コメント({{answer.comments.length}}件)を表示
+          </button>
+        </div>
       </div>
     </div>
+<!-- コメント追加部 -->
+    <div v-if="isLoggedIn()">
+      <div v-if="postcommentexpansion">
+        <div class="form-group comment-form">
+          <label for="form-comment">コメント追加</label>
+          <textarea
+            id="form-comment"
+            v-model="comment"
+            :maxlength="commentMaxLength"
+            class="comment-edit form-control"
+            type="text"
+            minlength="1"
+            required />
+<!-- コメント投稿/キャンセルボタン -->
+          <button
+            class="btn btn-primary mb-2 btn-comment"
+            @click="submitComment">投稿</button>
+          <button
+          class="btn btn-outline-primary mb-2 btn-comment"
+          @click="posthide">キャンセル</button>
+        </div>
+      </div>
+<!-- コメントをするボタン -->
+      <div v-else>
+        <button
+          class="btn btn-success btn-sm btn-comment"
+          @click="postexpansion">この回答にコメントする</button>
+      </div>
+    </div>
+    <br><br><br>
   </div>
 </template>
 
@@ -93,6 +146,8 @@ export default {
       editing: false,
       editingBody: '',
       comment: '',
+      commentexpansion: false,
+      postcommentexpansion: false,
     };
   },
   methods: {
@@ -107,6 +162,18 @@ export default {
       this.$emit('update', { answerId: this.answer.id, body: this.editingBody });
       this.editing = false;
       this.editingBody = '';
+    },
+    answercommentexpansion(){
+      this.commentexpansion = true;
+    },
+    commenthide(){
+      this.commentexpansion = false;
+    },
+    postexpansion(){
+      this.postcommentexpansion = true;
+    },
+    posthide(){
+      this.postcommentexpansion = false;
     },
     submitComment() {
       this.$store.dispatch('createAnswerComment', { questionId: this.$route.params.id, answerId: this.answer.id, body: this.comment })
@@ -130,5 +197,8 @@ export default {
 }
 .comment-edit {
   height:80px;
+}
+.body-edit{
+  height:200px;
 }
 </style>
