@@ -12,10 +12,11 @@ defmodule StackoverflowCloneB.Router do
   post "/v1/user/logout", User.Proxy, :proxy
   get  "/v1/user/me",     User.Proxy, :proxy
 
-  get  "/v1/question",     Question.Index,  :index
-  post "/v1/question",     Question.Create, :create
-  get  "/v1/question/:id", Question.Show,   :show
-  put  "/v1/question/:id", Question.Update, :update
+  get  "/v1/question",       Question.Index,  :index
+  post "/v1/question",       Question.Create, :create
+  get  "/v1/question/count", Question.Count,  :count
+  get  "/v1/question/:id",   Question.Show,   :show
+  put  "/v1/question/:id",   Question.Update, :update
 
   get  "/v1/answer",     Answer.Index,  :index
   post "/v1/answer",     Answer.Create, :create

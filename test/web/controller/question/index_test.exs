@@ -12,10 +12,10 @@ defmodule StackoverflowCloneB.Controller.Question.IndexTest do
     "should return questions" do
     :meck.expect(Sazabi.G2gClient, :send, fn(_, _, req) ->
       assert req.query == %Dodai.RetrieveDedicatedDataEntityListRequestQuery{
-        # limit: 10,
-        # skip:  0,
+        limit: 1000,
+        skip:  0,
         query: %{},
-        sort:  %{"createdAt" => 1}
+        sort:  %{"createdAt" => -1}
       }
 
       %Dodai.RetrieveDedicatedDataEntityListSuccess{body: [QuestionData.dodai()]}
@@ -30,10 +30,10 @@ defmodule StackoverflowCloneB.Controller.Question.IndexTest do
     "should return questions by user_id query" do
     :meck.expect(Sazabi.G2gClient, :send, fn(_, _, req) ->
       assert req.query == %Dodai.RetrieveDedicatedDataEntityListRequestQuery{
-        # limit: 10,
-        # skip:  0,
+        limit: 1000,
+        skip:  0,
         query: %{"data.user_id" => "user_id"},
-        sort:  %{"createdAt" => 1}
+        sort:  %{"createdAt" => -1}
       }
 
       %Dodai.RetrieveDedicatedDataEntityListSuccess{body: [QuestionData.dodai()]}
@@ -44,35 +44,59 @@ defmodule StackoverflowCloneB.Controller.Question.IndexTest do
     assert Poison.decode!(res.body) == [QuestionData.gear()]
   end
 
-  # test "index/1 " <>
-  # "should build question query" do
-  #   params_list = [
-  #     {%IndexRequestParams{user_id: nil,       title: nil,     body: nil   }, %Query{limit: 10, skip: 0, query: %{                                                                           }, sort: %{"createdAt" => 1}}},
-  #     {%IndexRequestParams{user_id: nil,       title: "title", body: nil   }, %Query{limit: 10, skip: 0, query: %{                             "data.title" => "title"                       }, sort: %{"createdAt" => 1}}},
-  #     {%IndexRequestParams{user_id: nil,       title: nil,     body: "body"}, %Query{limit: 10, skip: 0, query: %{                                                      "data.body" => "body"}, sort: %{"createdAt" => 1}}},
-  #     {%IndexRequestParams{user_id: "user_id", title: nil,     body: nil   }, %Query{limit: 10, skip: 0, query: %{"data.user_id" => "user_id"                                                }, sort: %{"createdAt" => 1}}},
-  #     {%IndexRequestParams{user_id: "user_id", title: "title", body: "body"}, %Query{limit: 10, skip: 0, query: %{"data.user_id" => "user_id", "data.title" => "title", "data.body" => "body"}, sort: %{"createdAt" => 1}}},
-  #   ]
-  #   Enum.each(params_list, fn {params, expected} ->
-  #     assert Index.convert_to_dodai_req_query(params, "-1") == expected
-  #     assert Index.convert_to_dodai_req_query(params, "0") == expected
-  #     assert Index.convert_to_dodai_req_query(params, "1") == expected
-  #   end)
-  # end
-
   test "index/1 " <>
-  "should build question query" do
+  "should build question query without page" do
     params_list = [
-      {%IndexRequestParams{user_id: nil,       title: nil,     body: nil   }, %Query{query: %{                                                                           }, sort: %{"createdAt" => 1}}},
-      {%IndexRequestParams{user_id: nil,       title: "title", body: nil   }, %Query{query: %{                             "data.title" => "title"                       }, sort: %{"createdAt" => 1}}},
-      {%IndexRequestParams{user_id: nil,       title: nil,     body: "body"}, %Query{query: %{                                                      "data.body" => "body"}, sort: %{"createdAt" => 1}}},
-      {%IndexRequestParams{user_id: "user_id", title: nil,     body: nil   }, %Query{query: %{"data.user_id" => "user_id"                                                }, sort: %{"createdAt" => 1}}},
-      {%IndexRequestParams{user_id: "user_id", title: "title", body: "body"}, %Query{query: %{"data.user_id" => "user_id", "data.title" => "title", "data.body" => "body"}, sort: %{"createdAt" => 1}}},
+      {%IndexRequestParams{user_id: nil,       title: nil,     body: nil   }, %Query{limit: 1000, skip: 0, query: %{                                                                           }, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: nil,       title: "title", body: nil   }, %Query{limit: 1000, skip: 0, query: %{                             "data.title" => "title"                       }, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: nil,       title: nil,     body: "body"}, %Query{limit: 1000, skip: 0, query: %{                                                      "data.body" => "body"}, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: "user_id", title: nil,     body: nil   }, %Query{limit: 1000, skip: 0, query: %{"data.user_id" => "user_id"                                                }, sort: %{"createdAt" => -1}}},
     ]
     Enum.each(params_list, fn {params, expected} ->
       assert Index.convert_to_dodai_req_query(params) == expected
-      assert Index.convert_to_dodai_req_query(params) == expected
-      assert Index.convert_to_dodai_req_query(params) == expected
+    end)
+  end
+
+  test "index/1 " <>
+  "should build question query 1st page" do
+    params_list = [
+      {%IndexRequestParams{user_id: nil,       title: nil,     body: nil   }, %Query{limit: 10, skip: 0, query: %{                                                                           }, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: nil,       title: "title", body: nil   }, %Query{limit: 10, skip: 0, query: %{                             "data.title" => "title"                       }, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: nil,       title: nil,     body: "body"}, %Query{limit: 10, skip: 0, query: %{                                                      "data.body" => "body"}, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: "user_id", title: nil,     body: nil   }, %Query{limit: 10, skip: 0, query: %{"data.user_id" => "user_id"                                                }, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: "user_id", title: "title", body: "body"}, %Query{limit: 10, skip: 0, query: %{"data.user_id" => "user_id", "data.title" => "title", "data.body" => "body"}, sort: %{"createdAt" => -1}}},
+    ]
+    Enum.each(params_list, fn {params, expected} ->
+      assert Index.convert_to_dodai_req_query(params, 1) == expected
+    end)
+  end
+
+  test "index/1 " <>
+  "should build question query 5th page" do
+    params_list = [
+      {%IndexRequestParams{user_id: nil,       title: nil,     body: nil   }, %Query{limit: 10, skip: 40, query: %{                                                                           }, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: nil,       title: "title", body: nil   }, %Query{limit: 10, skip: 40, query: %{                             "data.title" => "title"                       }, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: nil,       title: nil,     body: "body"}, %Query{limit: 10, skip: 40, query: %{                                                      "data.body" => "body"}, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: "user_id", title: nil,     body: nil   }, %Query{limit: 10, skip: 40, query: %{"data.user_id" => "user_id"                                                }, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: "user_id", title: "title", body: "body"}, %Query{limit: 10, skip: 40, query: %{"data.user_id" => "user_id", "data.title" => "title", "data.body" => "body"}, sort: %{"createdAt" => -1}}},
+    ]
+    Enum.each(params_list, fn {params, expected} ->
+      assert Index.convert_to_dodai_req_query(params, 5) == expected
+    end)
+  end
+
+  test "index/1 " <>
+  "should build question query error -1 and 0 page. This shows all pages" do
+    params_list = [
+      {%IndexRequestParams{user_id: nil,       title: nil,     body: nil   }, %Query{limit: 1000, skip: 0, query: %{                                                                           }, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: nil,       title: "title", body: nil   }, %Query{limit: 1000, skip: 0, query: %{                             "data.title" => "title"                       }, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: nil,       title: nil,     body: "body"}, %Query{limit: 1000, skip: 0, query: %{                                                      "data.body" => "body"}, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: "user_id", title: nil,     body: nil   }, %Query{limit: 1000, skip: 0, query: %{"data.user_id" => "user_id"                                                }, sort: %{"createdAt" => -1}}},
+      {%IndexRequestParams{user_id: "user_id", title: "title", body: "body"}, %Query{limit: 1000, skip: 0, query: %{"data.user_id" => "user_id", "data.title" => "title", "data.body" => "body"}, sort: %{"createdAt" => -1}}},
+    ]
+    Enum.each(params_list, fn {params, expected} ->
+      assert Index.convert_to_dodai_req_query(params, -1) == expected
+      assert Index.convert_to_dodai_req_query(params, 0) == expected
     end)
   end
 end
