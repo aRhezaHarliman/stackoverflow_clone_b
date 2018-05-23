@@ -37,7 +37,7 @@
             <button
               v-if="!editing"
               type="button"
-              class="square_btn_comment2 btn-sm"
+              class="edit-button square_btn_comment2 btn-sm"
               @click="startEdit">
               このコメントを更新
             </button>

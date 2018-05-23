@@ -1,9 +1,9 @@
 <template>
-<!-- 質問タイトル入力部 -->
+  <!-- 質問タイトル入力部 -->
   <div>
     <div class="main-area">
       <div class="content-area">
-<!-- 質問内容入力部 -->
+        <!-- 質問内容入力部 -->
         <div v-if ="editing">
           <form
             class="form-body"
@@ -28,7 +28,7 @@
                 minlength="1"
                 required />
               <br>
-<!-- 質問編集の保存/キャンセルボタン -->
+              <!-- 質問編集の保存/キャンセルボタン -->
               <button
                 class="btn btn-primary mb-2"
                 type="submit">保存</button>
@@ -38,10 +38,9 @@
                 @click.prevent="cancelEdit">キャンセル</button>
             </div>
           </form>
-<!-- 質問内容を表示 -->
+          <!-- 質問内容を表示 -->
         </div>
         <div v-else>
-<<<<<<< HEAD
           <div class="page-title">{{ question.title }}</div>
           <div class="question-container">
             <div class="info-area">
@@ -57,11 +56,11 @@
                   <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
                     {{ question.userId }}</router-link>
                   <br>
-    <!-- 質問更新ボタン -->
+                  <!-- 質問更新ボタン -->
                   <button
                     v-if="isValidUser(question.userId)"
                     type="button"
-                    class="square_btn_question btn-sm"
+                    class="edit-button square_btn_question btn-sm"
                     @click="startEdit">
                     質問を更新
                   </button>
@@ -73,7 +72,7 @@
       </div>
     </div>
     <br >
-<!-- コメント表示部 -->
+    <!-- コメント表示部 -->
     【コメント】
     <div v-if="question.comments.length > 0">
       <div v-if="commentexpansion">
@@ -86,7 +85,7 @@
             @update="updateComment" />
           <hr>
         </div>
-<!-- コメント非表示ボタン -->
+        <!-- コメント非表示ボタン -->
         <div v-if="question.comments.length > 2">
           <button
             type="button"
@@ -107,7 +106,7 @@
           <hr>
         </div>
         <div v-if="question.comments.length > 2">
-<!-- コメント表示ボタン -->
+          <!-- コメント表示ボタン -->
           <button
             type="button"
             class="btn btn-link"
@@ -117,7 +116,7 @@
         </div>
       </div>
     </div>
-<!-- コメント追加部 -->
+    <!-- コメント追加部 -->
     <div v-if="isLoggedIn()">
       <div v-if="postcommentexpansion">
         <div class="form-group comment-form">
@@ -129,25 +128,25 @@
             class="comment-edit form-control"
             minlength="1"
             required/>
-<!-- コメント投稿/キャンセルボタン -->
+          <!-- コメント投稿/キャンセルボタン -->
           <button
             class="btn btn-primary mb-2 btn-comment"
             @click="submitComment">投稿</button>
           <button
-          class="btn btn-outline-primary mb-2 btn-comment"
-          @click="posthide">キャンセル</button>
+            class="btn btn-outline-primary mb-2 btn-comment"
+            @click="posthide">キャンセル</button>
         </div>
       </div>
       <div v-else>
-<!-- コメントをするボタン -->
+        <!-- コメントをするボタン -->
         <!-- <button
           harf = "#"
           class="btn btn-success btn-sm btn-comment"
           @click="postexpansion">この質問にコメントする</button> -->
-          <button
-            harf = "#"
-            class="square_btn btn-sm"
-            @click="postexpansion">この質問にコメントする</button>
+        <button
+          harf = "#"
+          class="square_btn btn-sm"
+          @click="postexpansion">この質問にコメントする</button>
       </div>
     </div>
     <br><br><br>
@@ -204,10 +203,10 @@ export default {
     expansion() {
       this.commentexpansion = true;
     },
-    postexpansion(){
+    postexpansion() {
       this.postcommentexpansion = true;
     },
-    posthide(){
+    posthide() {
       this.postcommentexpansion = false;
     },
     hide() {
@@ -249,13 +248,12 @@ export default {
 .comment-list {
   margin-left: 10px;
 }
-<<<<<<< HEAD
 .question-body {
   margin-left: 40px;
 }
 .vote {
   position: absolute;
-=======
+}
 .square_btn {
     display: inline-block;
     padding: 0.3em 1em;
@@ -281,6 +279,5 @@ export default {
 .square_btn_question:hover {
     background: #F89A1F;
     color: white;
->>>>>>> ボタンのデザインの変更と微細な修正
 }
 </style>

@@ -13,7 +13,6 @@ describe('QuestionDetailPage', function () {
   let sandbox;
   let retrieveQuestionStub;
   let updateQuestionStub;
-<<<<<<< HEAD
   let retrieveAnswersStub;
   let submitAnswerStub;
 
@@ -22,19 +21,14 @@ describe('QuestionDetailPage', function () {
     title: 'titleX',
     body: 'bodyX',
   };
-=======
->>>>>>> 微細な修正,questionに対するコメントの表示設定変更,questionの改行バグを修正
 
   beforeEach(function () {
     sandbox = sinon.sandbox.create();
     retrieveQuestionStub = sandbox.stub().callsFake(() => Promise.resolve());
     updateQuestionStub = sandbox.stub().callsFake(() => Promise.resolve());
-<<<<<<< HEAD
     retrieveAnswersStub = sandbox.stub().callsFake(() => Promise.resolve());
     submitAnswerStub = sandbox.stub().callsFake(() => Promise.resolve());
 
-=======
->>>>>>> 微細な修正,questionに対するコメントの表示設定変更,questionの改行バグを修正
     store = new Vuex.Store({
       state: {
         question: {
@@ -46,11 +40,8 @@ describe('QuestionDetailPage', function () {
       actions: {
         retrieveQuestion: retrieveQuestionStub,
         updateQuestion: updateQuestionStub,
-<<<<<<< HEAD
         retrieveAnswers: retrieveAnswersStub,
         submit: submitAnswerStub,
-=======
->>>>>>> 微細な修正,questionに対するコメントの表示設定変更,questionの改行バグを修正
       },
     });
   });
@@ -66,13 +57,8 @@ describe('QuestionDetailPage', function () {
     const wrapper = shallow(QuestionDetailPage, {
       store,
       router,
-<<<<<<< HEAD
       propsData: {
         questionBody,
-=======
-      stubs: {
-        Question,
->>>>>>> 微細な修正,questionに対するコメントの表示設定変更,questionの改行バグを修正
       },
     });
     const retrieveQuestionArg = retrieveQuestionStub.getCall(0).args[1];
