@@ -1,9 +1,13 @@
 <template>
-  <!-- 質問タイトル入力部 -->
+<!-- 質問タイトル入力部 -->
   <div>
     <div class="main-area">
+      <img src="https://cdn.worldvectorlogo.com/logos/stack-overflow.svg">
+      <hr>
+      <h1 class="basic"><center>Question Page</center></h1>
+      <br><br>
       <div class="content-area">
-        <!-- 質問内容入力部 -->
+<!-- 質問内容入力部 -->
         <div v-if ="editing">
           <form
             class="form-body"
@@ -28,7 +32,7 @@
                 minlength="1"
                 required />
               <br>
-              <!-- 質問編集の保存/キャンセルボタン -->
+<!-- 質問編集の保存/キャンセルボタン -->
               <button
                 class="btn btn-primary mb-2"
                 type="submit">保存</button>
@@ -38,7 +42,7 @@
                 @click.prevent="cancelEdit">キャンセル</button>
             </div>
           </form>
-          <!-- 質問内容を表示 -->
+<!-- 質問内容を表示 -->
         </div>
         <div v-else>
           <div class="page-title">{{ question.title }}</div>
@@ -57,13 +61,17 @@
                     {{ question.userId }}</router-link>
                   <br>
                   <!-- 質問更新ボタン -->
-                  <button
-                    v-if="isValidUser(question.userId)"
-                    type="button"
-                    class="edit-button square_btn_question btn-sm"
-                    @click="startEdit">
-                    質問を更新
-                  </button>
+                  <div v-if="isValidUser(question.userId)">
+                    <button
+                      type="button"
+                      class="edit-button square_btn_question btn-sm"
+                      @click="startEdit">
+                      質問を更新
+                    </button>
+                  </div>
+                  <div v-else>
+                    <br><br>
+                  </div>
                 </span>
               </div>
             </div>
@@ -72,7 +80,7 @@
       </div>
     </div>
     <br >
-    <!-- コメント表示部 -->
+<!-- コメント表示部 -->
     【コメント】
     <div v-if="question.comments.length > 0">
       <div v-if="commentexpansion">
@@ -85,7 +93,7 @@
             @update="updateComment" />
           <hr>
         </div>
-        <!-- コメント非表示ボタン -->
+<!-- コメント非表示ボタン -->
         <div v-if="question.comments.length > 2">
           <button
             type="button"
@@ -106,7 +114,7 @@
           <hr>
         </div>
         <div v-if="question.comments.length > 2">
-          <!-- コメント表示ボタン -->
+<!-- コメント表示ボタン -->
           <button
             type="button"
             class="btn btn-link"
@@ -116,7 +124,7 @@
         </div>
       </div>
     </div>
-    <!-- コメント追加部 -->
+<!-- コメント追加部 -->
     <div v-if="isLoggedIn()">
       <div v-if="postcommentexpansion">
         <div class="form-group comment-form">
@@ -128,7 +136,7 @@
             class="comment-edit form-control"
             minlength="1"
             required/>
-          <!-- コメント投稿/キャンセルボタン -->
+<!-- コメント投稿/キャンセルボタン -->
           <button
             class="btn btn-primary mb-2 btn-comment"
             @click="submitComment">投稿</button>
@@ -138,11 +146,7 @@
         </div>
       </div>
       <div v-else>
-        <!-- コメントをするボタン -->
-        <!-- <button
-          harf = "#"
-          class="btn btn-success btn-sm btn-comment"
-          @click="postexpansion">この質問にコメントする</button> -->
+<!-- コメントをするボタン -->
         <button
           harf = "#"
           class="square_btn btn-sm"
@@ -279,5 +283,15 @@ export default {
 .square_btn_question:hover {
     background: #F89A1F;
     color: white;
+}
+.basic {
+  background: ffffff;
+  text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+}
+img{
+   max-width: 250px;
+   height: auto;
+   width: auto;
+   max-height: 250px;
 }
 </style>

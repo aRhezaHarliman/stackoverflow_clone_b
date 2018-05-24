@@ -23,7 +23,7 @@
           class="answer-form"
           @submit.prevent="submit">
           <div class="form-group">
-            <h4>回答</h4>
+            <h4>回答する</h4>
             <hr>
             <textarea
               id="form-body"
@@ -95,7 +95,7 @@ export default {
       this.$store.dispatch('retrieveAnswers', { questionId: this.$route.params.id });
     },
     submit() {
-      this.$store.dispatch('createAnswer', { questionId: this.$route.params.id, body: this.answerBody })
+      this.$store.dispatch('createAnswer', { questionId: this.$route.params.id, body: encodeURI(this.answerBody) })
         .then(() => {
           this.$router.push({ path: `/question/${this.$route.params.id}` });
         });

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="page-title">質問を登録する</div>
+    <div class="page-title">質問を投稿する</div>
     <form
       class="question-form"
       @submit.prevent="submit">
@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     submit() {
-      this.$store.dispatch('createQuestion', { title: this.title, body: this.body })
+      this.$store.dispatch('createQuestion', { title: this.title, body: encodeURI(this.body) })
         .then(() => {
           this.$router.push({ path: '/' });
         });

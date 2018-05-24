@@ -1,7 +1,9 @@
 <template>
   <div>
-    <div class="page-title"><center>【投稿された質問一覧】</center></div>
-    <br><br><br>
+    <img src="https://cdn.worldvectorlogo.com/logos/stack-overflow.svg">
+    <hr>
+    <h1 class="basic"><center>Posted question list</center></h1>
+    <br>
     <div>
       <router-link
         to="question/create"
@@ -18,6 +20,9 @@
           {{ question.title }}
         </router-link>
       </h5>
+      <p style="text-align: right">
+        <!-- {{ question.answers.count.length }}件の回答 -->
+      </p>
       <div class="additional">
         Posted at {{ question.createdAt }}
         by <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">{{ question.userId }}</router-link>
@@ -126,6 +131,7 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+<<<<<<< HEAD
 .pagination {
     /* display: inline-block; */
     margin-bottom: 30px;
@@ -150,4 +156,17 @@ export default {
     background-color: #ddd;
     border-radius: 5px;
 }
+=======
+.basic {
+  background: ffffff;
+  text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+}
+img{
+   max-width: 250px;
+   height: auto;
+   width: auto;
+   max-height: 250px;
+}
+
+>>>>>>> decodeのバグが発生
 </style>

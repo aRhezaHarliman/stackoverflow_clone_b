@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div class="page-title">ユーザー詳細</div>
+    <img src="https://cdn.worldvectorlogo.com/logos/stack-overflow.svg">
     <hr>
+    <h1 class="basic"><center>User Page</center></h1>
     <div class="question-list list">
       <div class="list-title">質問一覧</div>
       <div
@@ -64,5 +65,15 @@ export default {
 }
 .list {
   margin: 30px 0;
+}
+.basic {
+  background: ffffff;
+  text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+}
+img{
+   max-width: 250px;
+   height: auto;
+   width: auto;
+   max-height: 250px;
 }
 </style>

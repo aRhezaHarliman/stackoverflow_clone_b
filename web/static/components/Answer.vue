@@ -1,5 +1,5 @@
 <template>
-  <!-- 回答編集部 -->
+<!-- 回答編集部 -->
   <div>
     【回答内容】
     <div v-if="editing">
@@ -18,7 +18,7 @@
             required />
         </div>
         <div class="form-group">
-          <!-- 回答編集保存/キャンセルボタン -->
+<!-- 回答編集保存/キャンセルボタン -->
           <button
             class="btn btn-primary mb-2"
             type="submit">保存</button>
@@ -29,16 +29,16 @@
         </div>
       </form>
     </div>
-    <!-- 回答を表示 -->
+<!-- 回答を表示 -->
     <div v-else>
       <br>
-      <div class="answer-body"><big>{{ answer.body }}</big></div>
+      <div class="answer-body"><big>{{ decodeURI(answer.body).replace(/\r?\n/g, '\n') }}</big></div>
       <div class="additional">
         --Posted at {{ answer.createdAt }} by
         <router-link :to="{ name: 'UserDetailPage', params: { id: answer.userId }}">
           {{ answer.userId }}</router-link>
       </div>
-      <!-- 回答を更新するかボタン -->
+<!-- 回答を更新するかボタン -->
       <span
         v-if="isValidUser(answer.userId)"
         class="additional">
@@ -52,11 +52,11 @@
         <br><br>
       </span>
     </div>
-    <!-- コメント表示部 -->
-    <br>
-    【コメント】
-    <br>
+<!-- コメント表示部 -->
     <div v-if="answer.comments.length > 0">
+      <br>
+      【コメント】
+      <br>
       <div v-if="commentexpansion">
         <div
           v-for="comment in answer.comments"
@@ -67,7 +67,7 @@
             @update="updateComment" />
           <hr>
         </div>
-        <!-- コメント非表示ボタン -->
+<!-- コメント非表示ボタン -->
         <div v-if="answer.comments.length > 1">
           <button
             type="button"
@@ -88,7 +88,7 @@
           <hr>
         </div>
         <div v-if="answer.comments.length > 1">
-          <!-- コメント表示ボタン -->
+<!-- コメント表示ボタン -->
           <button
             type="button"
             class="btn btn-link"
@@ -98,7 +98,7 @@
         </div>
       </div>
     </div>
-    <!-- コメント追加部 -->
+<!-- コメント追加部 -->
     <div v-if="isLoggedIn()">
       <div v-if="postcommentexpansion">
         <div class="form-group comment-form">
@@ -111,7 +111,7 @@
             type="text"
             minlength="1"
             required />
-          <!-- コメント投稿/キャンセルボタン -->
+<!-- コメント投稿/キャンセルボタン -->
           <button
             class="btn btn-primary mb-2 btn-comment"
             @click="submitComment">投稿</button>
@@ -120,7 +120,7 @@
             @click="posthide">キャンセル</button>
         </div>
       </div>
-      <!-- コメントをするボタン -->
+<!-- コメントをするボタン -->
       <div v-else>
         <button
           class="square_btn_comment btn-sm"
@@ -164,7 +164,7 @@ export default {
       this.editing = false;
     },
     update() {
-      this.$emit('update', { answerId: this.answer.id, body: this.editingBody });
+      this.$emit('update', { answerId: this.answer.id, body: encodeURI(this.editingBody) });
       this.editing = false;
       this.editingBody = '';
     },
