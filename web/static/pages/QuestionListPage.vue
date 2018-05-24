@@ -156,7 +156,7 @@ export default {
     background-color: #ddd;
     border-radius: 5px;
 }
-=======
+
 .basic {
   background: ffffff;
   text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
@@ -168,5 +168,4 @@ img{
    max-height: 250px;
 }
 
->>>>>>> decodeのバグが発生
 </style>

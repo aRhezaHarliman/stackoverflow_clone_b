@@ -32,7 +32,7 @@
     <!-- 回答を表示 -->
     <div v-else>
       <br>
-      <div class="answer-body"><big>{{ decodeURI(answer.body).replace(/\r?\n/g, '\n') }}</big></div>
+      <div class="answer-body"><span style="white-space:pre"><big>{{ decodedAnswerBody }}</big></span></div>
       <div class="additional">
         --Posted at {{ answer.createdAt }} by
         <router-link :to="{ name: 'UserDetailPage', params: { id: answer.userId }}">
@@ -154,6 +154,11 @@ export default {
       commentexpansion: false,
       postcommentexpansion: false,
     };
+  },
+  computed: {
+    decodedAnswerBody() {
+      return decodeURI(this.answer.body).replace(/\r?\n/g, '\n');
+    },
   },
   methods: {
     startEdit() {

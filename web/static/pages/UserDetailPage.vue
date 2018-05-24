@@ -26,7 +26,7 @@
         :key="answer.id">
         <div class="answer-body">
           <router-link :to="{ name: 'QuestionDetailPage', params: { id: answer.questionId }}">
-            {{ answer.body }}
+            <span style="white-space:pre">{{ decodeURI(answer.body).replace(/\r?\n/g, '\n') }}</span>
           </router-link>
         </div>
         <div class="additional">
@@ -45,10 +45,10 @@ export default {
   name: 'UserDetailPage',
   computed: {
     questions() {
-      return _.sortBy(this.$store.state.questions, 'createdAt');
+      return _.sortBy(this.$store.state.questions, 'createdAt').reverse();
     },
     answers() {
-      return _.sortBy(this.$store.state.answers, 'createdAt');
+      return _.sortBy(this.$store.state.answers, 'createdAt').reverse();
     },
   },
   mounted() {
