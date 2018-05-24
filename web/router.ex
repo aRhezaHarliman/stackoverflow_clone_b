@@ -18,10 +18,11 @@ defmodule StackoverflowCloneB.Router do
   get  "/v1/question/:id",   Question.Show,   :show
   put  "/v1/question/:id",   Question.Update, :update
 
-  get  "/v1/answer",     Answer.Index,  :index
-  post "/v1/answer",     Answer.Create, :create
-  get  "/v1/answer/:id", Answer.Show,   :show
-  put  "/v1/answer/:id", Answer.Update, :update
+  get  "/v1/answer",         Answer.Index,  :index
+  post "/v1/answer",         Answer.Create, :create
+  get  "/v1/answer/count",   Answer.Count,  :count
+  get  "/v1/answer/:id",     Answer.Show,   :show
+  put  "/v1/answer/:id",     Answer.Update, :update
 
   post "/v1/question/:document_id/comment",     Comment.Create, :create
   put  "/v1/question/:document_id/comment/:id", Comment.Update, :update
