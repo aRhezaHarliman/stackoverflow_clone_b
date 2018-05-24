@@ -41,7 +41,7 @@
       <a
         v-for="n in getPages"
         :key="n"
-        :class="{ active: isActive }"
+        :class="{ active: currentPage == n }"
         @click="retrieveQuestionsByPage(n)">{{ n }}</a>
       <div v-if="!isLastPage">
         <a
