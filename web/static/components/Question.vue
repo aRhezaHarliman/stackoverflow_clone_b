@@ -190,14 +190,14 @@ export default {
   },
   methods: {
     submitComment() {
-      this.$store.dispatch('createQuestionComment', { questionId: this.$route.params.id, body: this.comment })
+      this.$store.dispatch('createQuestionComment', { questionId: this.$route.params.id, body: encodeURI(this.comment) })
         .then(() => {
           this.$router.push({ path: `/question/${this.$route.params.id}` });
         });
       this.comment = '';
     },
     updateComment({ commentId, body }) {
-      this.$store.dispatch('updateQuestionComment', { questionId: this.$route.params.id, id: commentId, body: body });
+      this.$store.dispatch('updateQuestionComment', { questionId: this.$route.params.id, id: commentId, body: encodeURI(body) });
     },
     startEdit() {
       this.editing = true;

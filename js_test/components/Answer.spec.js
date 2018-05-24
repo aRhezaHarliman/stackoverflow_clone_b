@@ -36,6 +36,9 @@ describe('Answer', function () {
       isValidUser() {
         return true;
       },
+      // decodedAnswerBody() {
+      //   return "bodyX";
+      // }
     };
   });
 
@@ -43,6 +46,11 @@ describe('Answer', function () {
     const wrapper = shallow(Answer, {
       store,
       router,
+      // methods: {
+      //   decodedAnswerBody() {
+      //     return "bodyX";
+      //   }
+      // },
       propsData: {
         answer,
       },
@@ -84,6 +92,9 @@ describe('Answer', function () {
         isValidUser() {
           return false;
         },
+        // decodedAnswerBody() {
+        //   return "bodyX";
+        // }
       },
       propsData: {
         editing: true,

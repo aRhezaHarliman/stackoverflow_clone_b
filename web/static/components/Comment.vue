@@ -26,7 +26,7 @@
     </div>
     <div v-else>
       <div class="comment-body">
-        {{ comment.body }} <span class="additional"><br>-- Posted at {{ comment.createdAt }} by
+        <span style="white-space:pre">{{ commentBody }}</span> <span class="additional"><br>-- Posted at {{ comment.createdAt }} by
           <router-link :to="{ name: 'UserDetailPage', params: { id: comment.userId }}">
             {{ comment.userId }}</router-link>
         </span>
@@ -64,16 +64,21 @@ export default {
       editingBody: '',
     };
   },
+  computed: {
+    commentBody() {
+      return decodeURI(this.comment.body).replace(/\r?\n/g, '\n');
+    },
+  },
   methods: {
     startEdit() {
       this.editing = true;
-      this.editingBody = this.comment.body;
+      this.editingBody = this.commentBody;
     },
     cancelEdit() {
       this.editing = false;
     },
     update() {
-      this.$emit('update', { commentId: this.comment.id, body: this.editingBody });
+      this.$emit('update', { commentId: this.comment.id, body: encodeURI(this.editingBody) });
       this.editing = false;
       this.editingBody = '';
     },

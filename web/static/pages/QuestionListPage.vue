@@ -131,7 +131,7 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
 }
-<<<<<<< HEAD
+
 .pagination {
     /* display: inline-block; */
     margin-bottom: 30px;
@@ -158,7 +158,7 @@ export default {
 }
 
 .basic {
-  background: ffffff;
+  background: #ffffff;
   text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
 }
 img{

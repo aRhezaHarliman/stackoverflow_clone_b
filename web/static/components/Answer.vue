@@ -32,7 +32,8 @@
     <!-- 回答を表示 -->
     <div v-else>
       <br>
-      <div class="answer-body"><span style="white-space:pre"><big>{{ decodedAnswerBody }}</big></span></div>
+      <div class="answer-body"><span style="white-space:pre">
+      <big>{{ decodeURI(answer.body).replace(/\r?\n/g, '\n') }}</big></span></div>
       <div class="additional">
         --Posted at {{ answer.createdAt }} by
         <router-link :to="{ name: 'UserDetailPage', params: { id: answer.userId }}">
@@ -156,14 +157,14 @@ export default {
     };
   },
   computed: {
-    decodedAnswerBody() {
-      return decodeURI(this.answer.body).replace(/\r?\n/g, '\n');
-    },
   },
   methods: {
+    // decodedAnswerBody() {
+    //   return decodeURI(this.answer.body).replace(/\r?\n/g, '\n');
+    // },
     startEdit() {
       this.editing = true;
-      this.editingBody = this.answer.body;
+      this.editingBody = decodeURI(this.answer.body).replace(/\r?\n/g, '\n');
     },
     cancelEdit() {
       this.editing = false;
@@ -186,7 +187,10 @@ export default {
       this.postcommentexpansion = false;
     },
     submitComment() {
-      this.$store.dispatch('createAnswerComment', { questionId: this.$route.params.id, answerId: this.answer.id, body: this.comment })
+      this.$store.dispatch(
+        'createAnswerComment',
+        { questionId: this.$route.params.id, answerId: this.answer.id, body: encodeURI(this.comment) },
+      )
         .then(() => {
           this.$router.push({ path: `/question/${this.$route.params.id}` });
         });
