@@ -4,14 +4,36 @@
     <hr>
     <h1 class="basic"><center>Posted question list</center></h1>
     <br>
-    <div>
+    <div v-if="isLoggedIn()">
       <router-link
         to="question/create"
         class="btn btn-primary mb-2"
       >質問を新規作成
       </router-link>
     </div>
+    <div v-else>
+        質問するにはログインしてください
+    </div>
     <hr>
+    <div
+      class="pagination"
+      align="center" >
+      <div v-if="!isFirstPage">
+        <a
+          class="btn-link btn-prev"
+          @click="previousPage">&laquo;</a>
+      </div>
+      <a
+        v-for="n in getPages"
+        :key="n"
+        :class="{ active: currentPage == n }"
+        @click="retrieveQuestionsByPage(n)">{{ n }}</a>
+      <div v-if="!isLastPage">
+        <a
+          class="btn-link btn-next"
+          @click="nextPage">&raquo;</a>
+      </div>
+    </div>
     <div
       v-for="question in questions"
       :key="question.id">

@@ -153,6 +153,9 @@
           @click="postexpansion">この質問にコメントする</button>
       </div>
     </div>
+    <div v-else>
+      コメントするにはログインしてください
+    </div>
     <br><br><br>
   </div>
 </template>

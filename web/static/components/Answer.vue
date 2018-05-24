@@ -128,6 +128,9 @@
           @click="postexpansion">この回答にコメントする</button>
       </div>
     </div>
+    <div v-else>
+      コメントするにはログインしてください
+    </div>
     <br><hr style="border:0;border-top:thick dashed gray;">
   </div>
 </template>

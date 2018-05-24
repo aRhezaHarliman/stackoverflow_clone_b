@@ -40,6 +40,9 @@
           </div>
         </form>
       </div>
+      <div v-else>
+        回答するにはログインしてください
+      </div>
     </div>
     <h1 v-else>404 (Not Found)</h1>
     <br>
