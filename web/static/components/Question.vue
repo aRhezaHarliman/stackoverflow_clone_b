@@ -1,5 +1,5 @@
 <template>
-<!-- 質問タイトル入力部 -->
+  <!-- 質問タイトル入力部 -->
   <div>
     <div class="main-area">
       <img src="https://cdn.worldvectorlogo.com/logos/stack-overflow.svg">
@@ -7,7 +7,7 @@
       <h1 class="basic"><center>Question Page</center></h1>
       <br><br>
       <div class="content-area">
-<!-- 質問内容入力部 -->
+        <!-- 質問内容入力部 -->
         <div v-if ="editing">
           <form
             class="form-body"
@@ -32,7 +32,7 @@
                 minlength="1"
                 required />
               <br>
-<!-- 質問編集の保存/キャンセルボタン -->
+              <!-- 質問編集の保存/キャンセルボタン -->
               <button
                 class="btn btn-primary mb-2"
                 type="submit">保存</button>
@@ -42,7 +42,7 @@
                 @click.prevent="cancelEdit">キャンセル</button>
             </div>
           </form>
-<!-- 質問内容を表示 -->
+          <!-- 質問内容を表示 -->
         </div>
         <div v-else>
           <div class="page-title">{{ question.title }}</div>
@@ -80,7 +80,7 @@
       </div>
     </div>
     <br >
-<!-- コメント表示部 -->
+    <!-- コメント表示部 -->
     【コメント】
     <div v-if="question.comments.length > 0">
       <div v-if="commentexpansion">
@@ -93,7 +93,7 @@
             @update="updateComment" />
           <hr>
         </div>
-<!-- コメント非表示ボタン -->
+        <!-- コメント非表示ボタン -->
         <div v-if="question.comments.length > 2">
           <button
             type="button"
@@ -114,7 +114,7 @@
           <hr>
         </div>
         <div v-if="question.comments.length > 2">
-<!-- コメント表示ボタン -->
+          <!-- コメント表示ボタン -->
           <button
             type="button"
             class="btn btn-link"
@@ -124,7 +124,7 @@
         </div>
       </div>
     </div>
-<!-- コメント追加部 -->
+    <!-- コメント追加部 -->
     <div v-if="isLoggedIn()">
       <div v-if="postcommentexpansion">
         <div class="form-group comment-form">
@@ -136,7 +136,7 @@
             class="comment-edit form-control"
             minlength="1"
             required/>
-<!-- コメント投稿/キャンセルボタン -->
+          <!-- コメント投稿/キャンセルボタン -->
           <button
             class="btn btn-primary mb-2 btn-comment"
             @click="submitComment">投稿</button>
@@ -146,7 +146,7 @@
         </div>
       </div>
       <div v-else>
-<!-- コメントをするボタン -->
+        <!-- コメントをするボタン -->
         <button
           harf = "#"
           class="square_btn btn-sm"
